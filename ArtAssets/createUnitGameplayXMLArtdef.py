@@ -525,7 +525,7 @@ with open(filename, 'w') as f:
         print((unitXMLTemplate % (unitDBName,unitAssetName,unitAssetName)),file=f)
 
 # UnitBins.artdef
-filename = modbuddyPath + "\\ArtDefs\\UnitBins.artdef"
+filename = modbuddyPath + "\\ArtDefs\\Unit_Bins.artdef"
 os.makedirs(os.path.dirname(filename), exist_ok=True)
 with open(filename, 'w') as f:
     print(unitBinsHeader,file=f)
