@@ -2,8 +2,18 @@ import os
 
 typesXMLTemplate = "INSERT INTO Types (Type, Kind) VALUES ('%s', 'KIND_UNIT');"
 
-unitXMLTemplate = """INSERT INTO Units (UnitType, BaseMoves, Cost, AdvisorType, BaseSightRange, ZoneOfControl, Domain, FormationClass, Name, Description, PurchaseYield, PromotionClass, Maintenance, Combat)
-VALUES ('%s', '50', '10', 'ADVISOR_CONQUEST', '2', 1, 'DOMAIN_LAND', 'FORMATION_CLASS_LAND_COMBAT', '%s', '%s', 'YIELD_GOLD', 'PROMOTION_CLASS_HEAVY_CAVALRY', '1', '90');"""
+unitXMLTemplates = {
+"INFANTRY": "INSERT INTO Units (UnitType, Cost, Maintenance, BaseMoves, BaseSightRange, ZoneOfControl, Domain, Combat, FormationClass, PromotionClass, AdvisorType, Name, Description, PurchaseYield, PrereqTech) VALUES ('%s', '430', '6', '2', '2', 'true', 'DOMAIN_LAND', '70', 'FORMATION_CLASS_LAND_COMBAT', 'PROMOTION_CLASS_MELEE', 'ADVISOR_CONQUEST',  '%s', '%s', 'YIELD_GOLD', 'TECH_REPLACEABLE_PARTS');",
+"CARRIER": "INSERT INTO Units (UnitType, Cost, Maintenance, BaseMoves, BaseSightRange, ZoneOfControl, Domain, Combat, StrategicResource, FormationClass, PromotionClass, AdvisorType, Name, Description, PurchaseYield, PseudoYieldType, PrereqTech, AirSlots) VALUES ('%s', '540', '7', '3', '2', 'true', 'DOMAIN_SEA', '65', 'RESOURCE_OIL', 'FORMATION_CLASS_NAVAL', 'PROMOTION_CLASS_NAVAL_CARRIER', 'ADVISOR_CONQUEST',  '%s', '%s', 'YIELD_GOLD', 'PSEUDOYIELD_UNIT_NAVAL_COMBAT', 'TECH_COMBINED_ARMS', '2');",
+"SUBMARINE": "INSERT INTO Units (UnitType, Cost, Maintenance, BaseMoves, BaseSightRange, ZoneOfControl, Domain, Combat, RangedCombat, Range, StrategicResource, FormationClass, PromotionClass, AdvisorType, Name, Description, PurchaseYield, PseudoYieldType, PrereqTech, WMDCapable) VALUES ('%s', '680', '8', '4', '2', 'false', 'DOMAIN_SEA', '80', '85', '2', 'RESOURCE_URANIUM', 'FORMATION_CLASS_NAVAL', 'PROMOTION_CLASS_NAVAL_RAIDER', 'ADVISOR_CONQUEST',  '%s', '%s', 'YIELD_GOLD', 'PSEUDOYIELD_UNIT_NAVAL_COMBAT', 'TECH_TELECOMMUNICATIONS', 'true');",
+"SIEGE": "INSERT INTO Units (UnitType, Cost, Maintenance, BaseMoves, BaseSightRange, ZoneOfControl, Domain, Combat, Bombard, Range, FormationClass, PromotionClass, AdvisorType, Name, Description, PurchaseYield, PrereqTech) VALUES ('%s', '680', '8', '2', '3', 'false', 'DOMAIN_LAND', '70', '95', '3', 'FORMATION_CLASS_LAND_COMBAT', 'PROMOTION_CLASS_SIEGE', 'ADVISOR_CONQUEST',  '%s', '%s', 'YIELD_GOLD', 'TECH_GUIDANCE_SYSTEMS');",
+"AIR":"INSERT INTO Units (UnitType, Cost, Maintenance, BaseMoves, BaseSightRange, ZoneOfControl, Domain, Combat, RangedCombat, Range, StrategicResource, FormationClass, PromotionClass, AdvisorType, Name, Description, CanCapture, PurchaseYield, PseudoYieldType, IgnoreMoves, PrereqTech, Stackable, PrereqDistrict, CanTargetAir) VALUES ('%s', '650', '8', '5', '5', 'false', 'DOMAIN_AIR', '90', '85', '5', 'RESOURCE_ALUMINUM', 'FORMATION_CLASS_AIR', 'PROMOTION_CLASS_AIR_FIGHTER', 'ADVISOR_CONQUEST',  '%s', '%s', 'False', 'YIELD_GOLD', 'PSEUDOYIELD_UNIT_AIR_COMBAT', 'true', 'TECH_LASERS', 'TRUE', 'DISTRICT_AERODROME', 'TRUE');",
+"NAVAL_R": "INSERT INTO Units (UnitType, Cost, Maintenance, BaseMoves, BaseSightRange, ZoneOfControl, Domain, Combat, RangedCombat, Range, AntiAirCombat, FormationClass, PromotionClass, AdvisorType, Name, Description, PurchaseYield, PseudoYieldType, PrereqTech, CanTargetAir) VALUES ('%s', '680', '8', '4', '3', 'true', 'DOMAIN_SEA', '70', '85', '3', '90', 'FORMATION_CLASS_NAVAL', 'PROMOTION_CLASS_NAVAL_RANGED', 'ADVISOR_CONQUEST',  '%s', '%s', 'YIELD_GOLD', 'PSEUDOYIELD_UNIT_NAVAL_COMBAT', 'TECH_LASERS', 'TRUE');",
+"NAVAL_M": "INSERT INTO Units (UnitType, Cost, Maintenance, BaseMoves, BaseSightRange, ZoneOfControl, Domain, Combat, StrategicResource, FormationClass, PromotionClass, AdvisorType, Name, Description, PurchaseYield, PseudoYieldType, PrereqTech) VALUES ('%s', '380', '5', '5', '3', 'true', 'DOMAIN_SEA', '60', 'RESOURCE_COAL', 'FORMATION_CLASS_NAVAL', 'PROMOTION_CLASS_NAVAL_MELEE', 'ADVISOR_CONQUEST', '%s', '%s', 'YIELD_GOLD', 'PSEUDOYIELD_UNIT_NAVAL_COMBAT', 'TECH_STEAM_POWER');",
+"RANGED": "INSERT INTO Units (UnitType, Cost, Maintenance, BaseMoves, BaseSightRange, ZoneOfControl, Domain, Combat, RangedCombat, Range, FormationClass, PromotionClass, AdvisorType, Name, Description, PurchaseYield, MandatoryObsoleteTech, PrereqTech) VALUES ('%s', '330', '5', '2', '2', 'false', 'DOMAIN_LAND', '50', '60', '2', 'FORMATION_CLASS_LAND_COMBAT', 'PROMOTION_CLASS_RANGED', 'ADVISOR_CONQUEST', '%s', '%s', 'YIELD_GOLD', 'TECH_TELECOMMUNICATIONS', 'TECH_BALLISTICS');",
+"ARMOR": "INSERT INTO Units (UnitType, Cost, Maintenance, BaseMoves, BaseSightRange, ZoneOfControl, Domain, Combat, StrategicResource, FormationClass, PromotionClass, AdvisorType, Name, Description, PurchaseYield, PrereqTech) VALUES ('%s', '680', '8', '4', '2', 'true', 'DOMAIN_LAND', '90', 'RESOURCE_URANIUM', 'FORMATION_CLASS_LAND_COMBAT', 'PROMOTION_CLASS_HEAVY_CAVALRY', 'ADVISOR_CONQUEST', '%s', '%s', 'YIELD_GOLD', 'TECH_COMPOSITES');",
+"DEFAULT": "INSERT INTO Units (UnitType, BaseMoves, Cost, AdvisorType, BaseSightRange, ZoneOfControl, Domain, FormationClass, Name, Description, PurchaseYield, PromotionClass, Maintenance, Combat) VALUES ('%s', '50', '10', 'ADVISOR_CONQUEST', '2', 1, 'DOMAIN_LAND', 'FORMATION_CLASS_LAND_COMBAT', '%s', '%s', 'YIELD_GOLD', 'PROMOTION_CLASS_HEAVY_CAVALRY', '1', '90');"
+}
 
 unitBinsHeader = """<?xml version="1.0" encoding="UTF-8" ?>
 <AssetObjects:ArtDefSet>
@@ -112,7 +122,7 @@ unitBinsTemplate = """<Element>
 																<m_ParamName text="Asset"/>
 															</Element>
 															<Element class="AssetObjects:FloatValue">
-																<m_fValue>1.000000</m_fValue>
+																<m_fValue>%s</m_fValue>
 																<m_ParamName text="Scale"/>
 															</Element>
 														</m_Values>
@@ -285,7 +295,7 @@ unitsArtdefUnitElement = """<Element>
 										<m_ParamName text="Scale"/>
 									</Element>
 									<Element class="AssetObjects:IntValue">
-										<m_nValue>1</m_nValue>
+										<m_nValue>%s</m_nValue>
 										<m_ParamName text="Count"/>
 									</Element>
 									<Element class="AssetObjects:ArtDefReferenceValue">
@@ -428,16 +438,73 @@ unitsArtdefUnitMemberElement = """<Element>
 				<m_AppendMergedParameterCollections>false</m_AppendMergedParameterCollections>
 			</Element>"""
 
+
+
+modelConvDatLines = {}
+
+with open('D:\\mod\\BeyondEarthUnpacks\\UnitModels\\resaveBatch\\unit_models.dat','r') as f:
+    for x in f:
+        bits = x.split(';')
+        keyName = bits[0].replace(".gr2","")
+        if len(bits[3].rstrip()) > 0:
+            keyName = bits[3].rstrip()
+        modelConvDatLines[keyName] = x
+
+
+
 #Read Asset Names
 unitAssetNames = []
-modbuddyPath = "D:\\mod\\BulkConversion\\Dinosaurs\\Modbuddy"
-unitPrefix = "UNIT_DINO_"
+unitAssetTypes = {}
+modbuddyPath = "D:\\mod\\BeyondEarthUnpacks\\UnitModels\\resaveBatch\\Modbuddy"
+unitPrefix = "UNIT_CIVBE_"
 assets_path = modbuddyPath + "\\Assets"
 for path, subdirs, files in os.walk(assets_path):
     for filename in files:
         if filename.endswith(".ast"):
             unitAssetName = filename.replace(".ast","")
+            modelConvData = modelConvDatLines[unitAssetName]
+            animations = modelConvData.split(';')[1]
+            if (animations.startswith("Naval_Carrier")):
+                unitAssetTypes[unitAssetName] = "NavalCarrier"
+            elif (animations.startswith("NavalMelee")):
+                unitAssetTypes[unitAssetName] = "NavalMelee"
+            elif (animations.startswith("Naval_Fighter") or animations.startswith("NavalFighter")):
+                unitAssetTypes[unitAssetName] = "NavalFighter"
+            elif (animations.startswith("Marine")):
+                unitAssetTypes[unitAssetName] = "Marine"
+            elif (animations.startswith("RangedMarine")):
+                unitAssetTypes[unitAssetName] = "RangedMarine"
+            elif (animations.startswith("Satellite")):
+                unitAssetTypes[unitAssetName] = "Satellite"
+            elif (animations.startswith("Siege")):
+                unitAssetTypes[unitAssetName] = "Siege"
+            elif (animations.startswith("Sub")):
+                unitAssetTypes[unitAssetName] = "Sub"
+            elif (animations.startswith("Cavalry")):
+                unitAssetTypes[unitAssetName] = "Cavalry"
+            elif (animations.startswith("Hydracoral")):
+                unitAssetTypes[unitAssetName] = "Hydracoral"
+            elif (animations.startswith("Air_Fighter")):
+                unitAssetTypes[unitAssetName] = "AirFighter"
+            else:
+                unitAssetTypes[unitAssetName] = "Other"
             unitAssetNames.append(unitAssetName)
+
+# [scale, xmlType, numModels]
+unitAssetTypeSettings =	{
+    "NavalCarrier": [0.3, "CARRIER", 1],
+    "NavalMelee": [1, "NAVAL_M", 1],
+    "NavalFighter": [1, "NAVAL_M", 1],
+    "Marine": [1.5, "INFANTRY", 4],
+    "RangedMarine": [1.5, "RANGED", 2],
+    "Satellite": [1, "AIR", 1],
+    "Siege": [1, "SIEGE", 1],
+    "Sub": [1, "SUBMARINE", 1],
+    "Cavalry": [1, "ARMOR", 1],
+    "Hydracoral": [10, "NAVAL_M", 1],
+    "AirFighter": [1, "AIR", 1],
+    "Other": [1, "ARMOR", 1]
+}
 
 #UnitsData.sql
 filename = modbuddyPath + "\\Data\\UnitsData.sql"
@@ -452,6 +519,9 @@ with open(filename, 'w') as f:
     print("--Units",file=f)
     for unitAssetName in unitAssetNames:
         unitDBName = unitPrefix + unitAssetName.upper().replace(" ","_")
+        unitAssetType = unitAssetTypes[unitAssetName]
+        typeSettings = unitAssetTypeSettings[unitAssetType]
+        unitXMLTemplate = unitXMLTemplates[typeSettings[1]]
         print((unitXMLTemplate % (unitDBName,unitAssetName,unitAssetName)),file=f)
 
 # UnitBins.artdef
@@ -460,7 +530,10 @@ os.makedirs(os.path.dirname(filename), exist_ok=True)
 with open(filename, 'w') as f:
     print(unitBinsHeader,file=f)
     for unitAssetName in unitAssetNames:
-        print((unitBinsTemplate % (unitAssetName,unitAssetName)),file=f)
+        unitAssetType = unitAssetTypes[unitAssetName]
+        typeSettings = unitAssetTypeSettings[unitAssetType]
+        scale = typeSettings[0]
+        print((unitBinsTemplate % (unitAssetName,scale,unitAssetName)),file=f)
     print(unitBinsFooter,file=f)
 
 # Units.artdef
@@ -469,8 +542,11 @@ os.makedirs(os.path.dirname(filename), exist_ok=True)
 with open(filename, 'w') as f:
     print(unitsArtdefHeader,file=f)
     for unitAssetName in unitAssetNames:
+        unitAssetType = unitAssetTypes[unitAssetName]
+        typeSettings = unitAssetTypeSettings[unitAssetType]
+        numMembers = typeSettings[2]
         unitDBName = unitPrefix + unitAssetName.upper().replace(" ","_")
-        print((unitsArtdefUnitElement % (unitAssetName,unitDBName)),file=f)
+        print((unitsArtdefUnitElement % (numMembers,unitAssetName,unitDBName)),file=f)
     print(unitsArtdefMiddle,file=f)
     for unitAssetName in unitAssetNames:
         print((unitsArtdefUnitMemberElement % (unitAssetName,unitAssetName)),file=f)

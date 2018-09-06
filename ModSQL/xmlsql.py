@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 
-xml = ET.parse("E:\\mod\\MOAR_Units\\UnitExpansion\\Data\\UnitExpansion_Data.xml")
+xml = ET.parse("D:\\SteamLibrary\\steamapps\\common\\Sid Meier's Civilization VI\\Base\\Assets\\Gameplay\\Data\\Units.xml")
 
 root = xml.getroot()
 
