@@ -1,6 +1,8 @@
 import random
 
-points = [(-9.25,37.667),
+points = [
+# Group 1
+(-9.25,37.667),
 (-28.5,23.25),
 (-19,25.5),
 (-14.083,27.917),
@@ -15,7 +17,46 @@ points = [(-9.25,37.667),
 (31.083,14),
 (30.667,9.75),
 (30.583,5.917),
-(-29.333,17.833)]
+(-29.333,17.833),
+# Group 2
+(-27.417,13.083),
+(-25.083,9.75),
+(-21.167,7.083),
+(-17.417,8.417),
+(-16.833,3.667),
+(-17.167,-1.25),
+(-13.75,6.583),
+(-13.917,2.333),
+(-13.5,-1.167),
+(-11.083,4.333),
+(-9.917,1),
+(-7.333,3.833),
+(-3.667,0.333),
+(-1.667,3.25),
+(0.5,-1),
+(2.75,3.667),
+(3.417,0.75),
+(3.667,-3.083),
+(7,2.333),
+(10.333,0.75),
+(11.583,-3.583),
+(9.083,-5.167),
+(17.667,-0.417),
+(18.167,-2.917),
+(21,1),
+(21.5,-2.25),
+(21.333,-5.583),
+(26.083,-0.917),
+(24.833,-3.417),
+(28.667,-0.167),
+(29.167,-3.667),
+(26.417,-17.083),
+(24.333,-19.917),
+(23.25,-16.833),
+(21.25,-22.333),
+(19.333,-17.583),
+(-29.583,-17.583)
+]
 
 attachmentTemplate = """<Element>
 						<m_CookParams>
@@ -51,7 +92,7 @@ attachmentTemplate = """<Element>
 						<m_Name text="%s"/>
 						<m_BoneName text="NWON_Origin_Dummy"/>
 						<m_ModelInstanceName text="NWON_Origin_Dummy"/>
-						<m_scale>1</m_scale>
+						<m_scale>0.75</m_scale>
 					</Element>"""
 
 tilebaseNames = ["PantanalGrassA",
@@ -69,7 +110,7 @@ tilebaseNames = ["PantanalGrassA",
 "PantanalTreeD"]
 
 
-filename = "D:\\mod\\output\\attachment-points.xml"
+filename = "D:\\Civ6Mod\\output\\attachment-points.xml"
 with open(filename, 'w') as f:
     for i, point in enumerate(points):
         tilebaseName = random.choice(tilebaseNames)
