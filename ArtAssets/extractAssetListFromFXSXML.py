@@ -1,12 +1,9 @@
 import xml.etree.ElementTree as ET
 import os
 
-packName = "Dinosaurs"
+models_path = "D:\\mod\\BeyondEarthUnpacks\\ExpeditionModels\\"
 
-models_path = "D:\\mod\\BulkConversion\\"+packName+"\\"
-
-#with open("D:\\mod\\BeyondEarthUnpacks\\"+packName+"\\resaveBatch\\model_conv.dat", 'w') as f:
-with open("D:\\mod\\BulkConversion\\"+packName+"\\model_conv.dat", 'w') as f:
+with open(models_path + "model_conv.dat", 'w') as f:
 
     for path, subdirs, files in os.walk(models_path):
         for filename in files:
