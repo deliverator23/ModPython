@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as ET
 import os
 
-models_path = "D:\\mod\\BeyondEarthUnpacks\\ImprovementModels\\"
+models_path = "D:\\mod\\BeyondEarthUnpacks\\TerrainModels\\"
 
 with open(models_path + "\\resaveBatch\\model_conv.dat", 'w') as f:
 
