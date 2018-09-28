@@ -438,8 +438,6 @@ unitsArtdefUnitMemberElement = """<Element>
 				<m_AppendMergedParameterCollections>false</m_AppendMergedParameterCollections>
 			</Element>"""
 
-
-
 modelConvDatLines = {}
 
 with open('D:\\mod\\BeyondEarthUnpacks\\UnitModels\\resaveBatch\\unit_models.dat','r') as f:
@@ -455,16 +453,38 @@ biomes = ["Arid","Frigid","Fungal","Lush","Primordial"]
 
 #Read Asset Names
 unitAssetNames = []
-unitAssetTypeOverrides = {
-    "Embarked" : "NavalMelee",
-    "Kraken": "NavalMelee",
-    "Makara_Land": "Cavalry",
-    "Makara": "NavalMelee",
-    "Manticore": "RangedMarine",
-    "Ripper": "NavalMelee",
-    "Sea_Dragon": "NavalMelee",
-    "Work_Boat": "NavalMelee"
+
+# [scale, xmlType, numModels]
+unitAssetTypeSettings =	{
+    "NavalCarrier": [1, "CARRIER", 1],
+    "NavalMelee": [1, "NAVAL_M", 1],
+    "NavalFighter": [1, "NAVAL_M", 1],
+    "Marine": [1, "INFANTRY", 4],
+    "RangedMarine": [1, "RANGED", 2],
+    "Satellite": [1, "AIR", 1],
+    "Siege": [1, "SIEGE", 1],
+    "Sub": [1, "SUBMARINE", 1],
+    "Cavalry": [1, "ARMOR", 1],
+    "Hydracoral": [1, "NAVAL_M", 1],
+    "AirFighter": [1, "AIR", 1],
+    "Other": [1, "ARMOR", 1]
 }
+
+# unitAssetTypeOverrides = {
+#     "Embarked" : "NavalMelee",
+#     "Kraken": "NavalMelee",
+#     "Makara_Land": "Cavalry",
+#     "Makara": "NavalMelee",
+#     "Manticore": "RangedMarine",
+#     "Ripper": "NavalMelee",
+#     "Sea_Dragon": "NavalMelee",
+#     "Work_Boat": "NavalMelee"
+# }
+
+unitAssetTypeOverrides = {
+     "Embarked" : "NavalMelee"
+}
+
 unitAssetTypes = {}
 modbuddyPath = "D:\\mod\\BeyondEarthUnpacks\\UnitModels\\resaveBatch\\Modbuddy"
 unitPrefix = "UNIT_CIVBE_"
@@ -479,55 +499,19 @@ for path, subdirs, files in os.walk(assets_path):
                 unitAssetNameToLookup = unitAssetNameToLookup.replace("_"+biome,"")
             modelConvData = modelConvDatLines[unitAssetNameToLookup]
             animations = modelConvData.split(';')[1]
-            if (animations.startswith("Naval_Carrier")):
-                unitAssetTypes[unitAssetName] = "NavalCarrier"
-            elif (animations.startswith("NavalMelee")):
-                unitAssetTypes[unitAssetName] = "NavalMelee"
-            elif (animations.startswith("Naval_Fighter") or animations.startswith("NavalFighter")):
-                unitAssetTypes[unitAssetName] = "NavalFighter"
-            elif (animations.startswith("Marine")):
-                unitAssetTypes[unitAssetName] = "Marine"
-            elif (animations.startswith("RangedMarine")):
-                unitAssetTypes[unitAssetName] = "RangedMarine"
-            elif (animations.startswith("Satellite")):
-                unitAssetTypes[unitAssetName] = "Satellite"
-            elif (animations.startswith("Siege")):
-                unitAssetTypes[unitAssetName] = "Siege"
-            elif (animations.startswith("Sub")):
-                unitAssetTypes[unitAssetName] = "Sub"
-            elif (animations.startswith("Cavalry")):
-                unitAssetTypes[unitAssetName] = "Cavalry"
-            elif (animations.startswith("Hydracoral")):
-                unitAssetTypes[unitAssetName] = "Hydracoral"
-            elif (animations.startswith("Air_Fighter")):
-                unitAssetTypes[unitAssetName] = "AirFighter"
-            else:
-                keyFound = False
-                for key in unitAssetTypeOverrides.keys():
-                    if unitAssetNameToLookup.startswith(key):
-                        unitAssetTypes[unitAssetName] = unitAssetTypeOverrides[key]
-                        keyFound = True
-                        break
-                if not keyFound:
-                    unitAssetTypes[unitAssetName] = "Other"
+
+            keyFound = False
+            for key in unitAssetTypeOverrides.keys():
+                if unitAssetNameToLookup.startswith(key):
+                    unitAssetTypes[unitAssetName] = unitAssetTypeOverrides[key]
+                    keyFound = True
+                    break
+            if not keyFound:
+                unitAssetTypes[unitAssetName] = "Other"
 
             unitAssetNames.append(unitAssetName)
 
-# [scale, xmlType, numModels]
-unitAssetTypeSettings =	{
-    "NavalCarrier": [0.3, "CARRIER", 1],
-    "NavalMelee": [1, "NAVAL_M", 1],
-    "NavalFighter": [1, "NAVAL_M", 1],
-    "Marine": [1.5, "INFANTRY", 4],
-    "RangedMarine": [1.5, "RANGED", 2],
-    "Satellite": [1, "AIR", 1],
-    "Siege": [1, "SIEGE", 1],
-    "Sub": [1, "SUBMARINE", 1],
-    "Cavalry": [1, "ARMOR", 1],
-    "Hydracoral": [10, "NAVAL_M", 1],
-    "AirFighter": [1, "AIR", 1],
-    "Other": [1, "ARMOR", 1]
-}
+
 
 #UnitsData.sql
 filename = modbuddyPath + "\\Data\\UnitsData.sql"
