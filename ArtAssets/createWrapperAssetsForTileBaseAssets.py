@@ -1,6 +1,6 @@
 import os
 
-modbuddyPath = "D:\\mod\\BeyondEarthUnpacks\\ResourceModels\\resaveBatch\\Modbuddy"
+modbuddyPath = "D:\\Civ6Mod\\gitproject\\CivBETerrainModels\\CivBETerrainModels\\"
 
 template = """<?xml version="1.0" encoding="UTF-8" ?>
 <AssetObjects:AssetInstance>
@@ -145,18 +145,22 @@ defaultScale = 5
 
 assets_path = modbuddyPath + "\\Assets"
 
+tilebaseNames = []
 assetNames = []
 
 for path, subdirs, files in os.walk(assets_path):
     for filename in files:
         if filename.endswith(".ast") and not assetClass in filename:
             unitAssetName = filename.replace(".ast","")
+            tilebaseNames.append(unitAssetName)
             #print(unitAssetName)
             wrapperAssetName = unitAssetName + "_" + assetClass
             filename = assets_path + "\\" + wrapperAssetName + ".ast"
             with open(filename, 'w') as f:
                 print((template % (unitAssetName,defaultScale,dsg,assetClass,wrapperAssetName,assetClass)), file=f)
             assetNames.append(wrapperAssetName)
+
+
 
 ### TerrainAssetSet_Base.xlp
 xlpHeader = """<?xml version="1.0" encoding="UTF-8" ?>
@@ -167,8 +171,8 @@ xlpHeader = """<?xml version="1.0" encoding="UTF-8" ?>
 		<build>253</build>
 		<revision>867</revision>
 	</m_Version>
-	<m_ClassName text="TerrainAsset"/>
-	<m_PackageName text="terrain/TerrainAssetSet_Base"/>
+	<m_ClassName text="%s"/>
+	<m_PackageName text="%s"/>
 	<m_Entries>"""
 
 xlpFooter = """</m_Entries>
@@ -188,22 +192,74 @@ xlpEntry = """<Element>
 filename = modbuddyPath + "\\XLPs\\TerrainAssetSet_Base.xlp"
 os.makedirs(os.path.dirname(filename), exist_ok=True)
 with open(filename, 'w') as f:
-    print(xlpHeader,file=f)
+    print(xlpHeader % ("TerrainAsset","terrain/TerrainAssetSet_Base"),file=f)
     for assetName in assetNames:
         print((xlpEntry % (assetName,assetName)),file=f)
     print(xlpFooter,file=f)
 
+filename = modbuddyPath + "\\XLPs\\tilebases.xlp"
+os.makedirs(os.path.dirname(filename), exist_ok=True)
+with open(filename, 'w') as f:
+    print(xlpHeader % ("TileBase","landmarks/tilebases"),file=f)
+    for assetName in tilebaseNames:
+        print((xlpEntry % (assetName,assetName)),file=f)
+    print(xlpFooter,file=f)
+
+
+dataXMLHeader = """<?xml version="1.0" encoding="utf-8"?>
+<GameInfo>
+	<Types>"""
+
+dataTypesTemplate = """<Row Type="%s" Kind="KIND_FEATURE"/>"""
+
+dataXMLMid1 = """</Types>
+	<Features>"""
+
+dataFeaturesTemplate = """<Row FeatureType="%s" Name="Rock of Gibraltar" Tiles="1" FollowRulesInWB="false"/>"""
+
+dataXMLMid2 = """</Features>
+	<Feature_ValidTerrains>"""
+
+dataValidTerrainsTemplate = """<Row FeatureType="%s" TerrainType="%s"/>"""
+
+dataXMLFooter = """</Feature_ValidTerrains>
+</GameInfo>"""
+
+validTerrains = [
+"TERRAIN_COAST",
+"TERRAIN_OCEAN",
+"TERRAIN_DESERT",
+"TERRAIN_GRASS",
+"TERRAIN_PLAINS",
+"TERRAIN_TUNDRA",
+"TERRAIN_DESERT_HILLS",
+"TERRAIN_GRASS_HILLS",
+"TERRAIN_PLAINS_HILLS",
+"TERRAIN_TUNDRA_HILLS"
+]
 
 # Features.xml
 filename = modbuddyPath + "\\Data\\Features.xml"
 os.makedirs(os.path.dirname(filename), exist_ok=True)
 with open(filename, 'w') as f:
     #print(featuresArtdefHeader,file=f)
+    print(dataXMLHeader, file=f)
     for assetName in assetNames:
-        featureXMLName = "FEATURE_" + assetName.replace(assetClass, "").rstrip('_').upper()
-        print(featureXMLName, file=f)
-    #print(featuresArtdefFooter,file=f)
+        featureXMLName = "FEATURE_CIVBE_" + assetName.replace(assetClass, "").rstrip('_').upper()
+        print((dataTypesTemplate % featureXMLName), file=f)
 
+    print(dataXMLMid1, file=f)
+    for assetName in assetNames:
+        featureXMLName = "FEATURE_CIVBE_" + assetName.replace(assetClass, "").rstrip('_').upper()
+        print((dataFeaturesTemplate % featureXMLName), file=f)
+
+    print(dataXMLMid2, file=f)
+    for assetName in assetNames:
+        featureXMLName = "FEATURE_CIVBE_" + assetName.replace(assetClass, "").rstrip('_').upper()
+        for terrain in validTerrains:
+            print((dataValidTerrainsTemplate % (featureXMLName,terrain)), file=f)
+
+    print(dataXMLFooter, file=f)
 
 # Features.artdef
 featuresArtdefHeader = """<?xml version="1.0" encoding="UTF-8" ?>
@@ -292,7 +348,7 @@ os.makedirs(os.path.dirname(filename), exist_ok=True)
 with open(filename, 'w') as f:
     print(featuresArtdefHeader,file=f)
     for assetName in assetNames:
-        featureXMLName = "FEATURE_" + assetName.replace(assetClass,"").rstrip('_').upper()
+        featureXMLName = "FEATURE_CIVBE_" + assetName.replace(assetClass,"").rstrip('_').upper()
         print((featuresTemplate % (featureXMLName)),file=f)
     print(featuresArtdefFooter,file=f)
 
@@ -419,6 +475,6 @@ os.makedirs(os.path.dirname(filename), exist_ok=True)
 with open(filename, 'w') as f:
     print(terrainStyleArtdefHeader,file=f)
     for assetName in assetNames:
-        featureXMLName = "FEATURE_" + assetName.replace(assetClass,"").rstrip('_').upper()
+        featureXMLName = "FEATURE__CIVBE_" + assetName.replace(assetClass,"").rstrip('_').upper()
         print((terrainStyleArtdefTemplate % (assetName,featureXMLName)),file=f)
     print(terrainStyleArtdefFooter,file=f)
