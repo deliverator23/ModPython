@@ -440,12 +440,13 @@ unitsArtdefUnitMemberElement = """<Element>
 
 modelConvDatLines = {}
 
-with open('D:\\mod\\BeyondEarthUnpacks\\UnitModels\\resaveBatch\\unit_models.dat','r') as f:
+with open('D:\\mod\\Civ5Unpacks\\UnitModels_All\\resaveBatch\\UnitModels_All.dat','r') as f:
     for x in f:
         bits = x.split(';')
         keyName = bits[0].replace(".gr2","")
         if len(bits[3].rstrip()) > 0:
             keyName = bits[3].rstrip()
+        keyName = keyName.title()
         modelConvDatLines[keyName] = x
 
 
@@ -456,38 +457,33 @@ unitAssetNames = []
 
 # [scale, xmlType, numModels]
 unitAssetTypeSettings =	{
-    "NavalCarrier": [1, "CARRIER", 1],
-    "NavalMelee": [1, "NAVAL_M", 1],
-    "NavalFighter": [1, "NAVAL_M", 1],
-    "Marine": [1, "INFANTRY", 4],
-    "RangedMarine": [1, "RANGED", 2],
-    "Satellite": [1, "AIR", 1],
+    "Carrier": [1, "CARRIER", 1],
+    "Naval": [1, "NAVAL_M", 1],
+    "Infantry": [1, "INFANTRY", 4],
+    "Ranged": [1, "RANGED", 2],
     "Siege": [1, "SIEGE", 1],
     "Sub": [1, "SUBMARINE", 1],
     "Cavalry": [1, "ARMOR", 1],
-    "Hydracoral": [1, "NAVAL_M", 1],
-    "AirFighter": [1, "AIR", 1],
-    "Other": [1, "ARMOR", 1]
+    "Air": [1, "AIR", 1],
+    "Other": [1, "INFANTRY", 1]
 }
 
-# unitAssetTypeOverrides = {
-#     "Embarked" : "NavalMelee",
-#     "Kraken": "NavalMelee",
-#     "Makara_Land": "Cavalry",
-#     "Makara": "NavalMelee",
-#     "Manticore": "RangedMarine",
-#     "Ripper": "NavalMelee",
-#     "Sea_Dragon": "NavalMelee",
-#     "Work_Boat": "NavalMelee"
-# }
-
 unitAssetTypeOverrides = {
-     "Embarked" : "NavalMelee"
+    "Antiaircraftgun" : "Ranged",
+    "Antitankgun": "Ranged",
+    "Archer" : "Ranged",
+    "Artillery" : "Siege",
+    "Atomicbomb" : "Air",
+    "Barbarian_Archer" : "Ranged",
+    "Barbarian_Euro" : "Infantry",
+    "Barbarian_Galley" : "Naval",
+    "Barbarian_Spearman" : "Infantry",
+    "Barbarian_Swordsman": "Infantry"
 }
 
 unitAssetTypes = {}
-modbuddyPath = "D:\\mod\\BeyondEarthUnpacks\\UnitModels\\resaveBatch\\Modbuddy"
-unitPrefix = "UNIT_CIVBE_"
+modbuddyPath = "D:\\mod\\Civ5Unpacks\\UnitModels_All\\resaveBatch\\Modbuddy"
+unitPrefix = "UNIT_CIV5_"
 assets_path = modbuddyPath + "\\Assets"
 for path, subdirs, files in os.walk(assets_path):
     for filename in files:
