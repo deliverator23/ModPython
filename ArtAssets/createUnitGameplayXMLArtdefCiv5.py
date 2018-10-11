@@ -492,7 +492,32 @@ unitAssetTypeOverrides = {
     "Chariotarcher" : "Ranged",
     "Civil_War_Engineer" : "Infantry",
     "Composite_Bowman" : "Ranged",
-    "Confederate_Artillery" : "Siege"
+    "Confederate_Artillery" : "Siege",
+    "Confederate_Cavalry" : "Cavalry",
+    "Confederate_Ironclad" : "Naval",
+    "Confederate_Rifleman" : "Infantry",
+    "Crossbowman" : "Ranged",
+    "Cw_Great_General" : "Infantry",
+    "Destroyer" : "Naval",
+    "Ethiopian_Mehal_Sefari" : "Infantry",
+    "Euro" : "Infantry",
+    "Fighter" : "Air",
+    "Frigate" : "Naval",
+    "Gadrauhts_Swordsman" : "Infantry",
+    "Gall" : "Naval",
+    "Gatling_Gun" : "Ranged",
+    "Great_Admiral" : "Naval",
+    "Guidedmissile" : "Air",
+    "Hand_Axe_Barbarian" : "Ranged",
+    "Helicoptergunship" : "Cavalry",
+    "Horseman" : "Cavalry",
+    "Ironclad" : "Naval",
+    "Jetfighter" : "Air",
+    "Knight" : "Cavalry",
+    "Lancer" : "Cavalry",
+    "Mayan_Atlalist" : "Ranged",
+    "Mechanizedinfantry" : "Cavalry",
+    "Missilecruiser" : "Naval"
 }
 
 unitAssetTypes = {}
