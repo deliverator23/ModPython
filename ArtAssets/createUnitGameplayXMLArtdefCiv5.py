@@ -478,7 +478,21 @@ unitAssetTypeOverrides = {
     "Barbarian_Euro" : "Infantry",
     "Barbarian_Galley" : "Naval",
     "Barbarian_Spearman" : "Infantry",
-    "Barbarian_Swordsman": "Infantry"
+    "Barbarian_Swordsman": "Infantry",
+    "Battleship" : "Naval",
+    "Bazooka_Infantry" : "Ranged",
+    "Bomber" : "Air",
+    "Cannon" : "Siege",
+    "Caravan" : "Cavalry",
+    "Caravel" : "Naval",
+    "Cargo_Ship" : "Naval",
+    "Carrier" : "Carrier",
+    "Catapult" : "Siege",
+    "Cavalry" : "Cavalry",
+    "Chariotarcher" : "Ranged",
+    "Civil_War_Engineer" : "Infantry",
+    "Composite_Bowman" : "Ranged",
+    "Confederate_Artillery" : "Siege"
 }
 
 unitAssetTypes = {}
