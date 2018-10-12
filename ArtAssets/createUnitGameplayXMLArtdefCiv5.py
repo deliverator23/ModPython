@@ -457,15 +457,15 @@ unitAssetNames = []
 
 # [scale, xmlType, numModels]
 unitAssetTypeSettings =	{
-    "Carrier": [1, "CARRIER", 1],
-    "Naval": [1, "NAVAL_M", 1],
-    "Infantry": [1, "INFANTRY", 4],
-    "Ranged": [1, "RANGED", 2],
-    "Siege": [1, "SIEGE", 1],
-    "Sub": [1, "SUBMARINE", 1],
-    "Cavalry": [1, "ARMOR", 1],
-    "Air": [1, "AIR", 1],
-    "Other": [1, "INFANTRY", 1]
+    "Carrier": [1.5, "CARRIER", 1],
+    "Naval": [1.5, "NAVAL_M", 1],
+    "Infantry": [1.5, "INFANTRY", 4],
+    "Ranged": [1.5, "RANGED", 2],
+    "Siege": [1.5, "SIEGE", 1],
+    "Sub": [1.5, "SUBMARINE", 1],
+    "Cavalry": [1.5, "ARMOR", 1],
+    "Air": [1.5, "AIR", 1],
+    "Other": [1.5, "INFANTRY", 1]
 }
 
 unitAssetTypeOverrides = {
