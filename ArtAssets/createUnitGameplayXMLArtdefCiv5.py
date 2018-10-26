@@ -1,4 +1,5 @@
 import os
+import random
 
 typesXMLTemplate = "INSERT INTO Types (Type, Kind) VALUES ('%s', 'KIND_UNIT');"
 
@@ -396,14 +397,14 @@ unitsArtdefUnitMemberElement = """<Element>
 																<m_Value text="Root"/>
 																<m_ParamName text="Point"/>
 															</Element>
-															<Element class="AssetObjects:ArtDefReferenceValue">
-																<m_ElementName text=""/>
-																<m_RootCollectionName text="UnitTintTypes"/>
-																<m_ArtDefPath text=""/>
-																<m_CollectionIsLocked>true</m_CollectionIsLocked>
-																<m_TemplateName text=""/>
-																<m_ParamName text="Tint"/>
-															</Element>
+                                                            <Element class="AssetObjects:ArtDefReferenceValue">
+                                                                <m_ElementName text="%s"/>
+                                                                <m_RootCollectionName text="UnitTintTypes"/>
+                                                                <m_ArtDefPath text="Units.artdef"/>
+                                                                <m_CollectionIsLocked>true</m_CollectionIsLocked>
+                                                                <m_TemplateName text="Units"/>
+                                                                <m_ParamName text="Tint"/>
+                                                            </Element>
 														</m_Values>
 													</m_Fields>
 													<m_ChildCollections>
@@ -632,6 +633,15 @@ with open(filename, 'w') as f:
         print((unitBinsTemplate % (unitAssetName,unitAssetName)),file=f)
     print(unitBinsFooter,file=f)
 
+tintStrings = ["CV_NorthernEuropean",
+"CV_EastAsian",
+"CV_Mediterranean",
+"CV_Mughal",
+"CV_NorthAfrican",
+"CV_SouthAfrican",
+"CV_SouthAmerican",
+"CV_Any"]
+
 # Units.artdef
 filename = modbuddyPath + "\\ArtDefs\\Units.artdef"
 os.makedirs(os.path.dirname(filename), exist_ok=True)
@@ -646,9 +656,9 @@ with open(filename, 'w') as f:
         print((unitsArtdefUnitElement % (scale,numMembers,unitAssetName,unitDBName)),file=f)
     print(unitsArtdefMiddle,file=f)
     for unitAssetName in unitAssetNames:
-        print((unitsArtdefUnitMemberElement % (unitAssetName,unitAssetName)),file=f)
+        tintString = random.choice(tintStrings)
+        print((unitsArtdefUnitMemberElement % (tintString, unitAssetName,unitAssetName)),file=f)
     print(unitsArtdefFooter,file=f)
-
 
 # Units.xlp
 
