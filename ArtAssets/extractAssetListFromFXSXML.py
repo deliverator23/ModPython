@@ -1,9 +1,9 @@
 import xml.etree.ElementTree as ET
 import os
 
-models_path = "D:\\mod\\Civ5Unpacks\\UnitModels_All\\"
+models_path = "D:\\mod\\BulkConversion\\Pre-Heresy Space Marine Legions (v 1)\\art\\"
 
-with open(models_path + "\\resaveBatch\\UnitModels_All.dat", 'w') as f:
+with open(models_path + "\\legions.dat", 'w') as f:
 
     for path, subdirs, files in os.walk(models_path):
         for filename in files:
