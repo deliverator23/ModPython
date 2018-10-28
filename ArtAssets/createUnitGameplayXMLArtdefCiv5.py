@@ -441,7 +441,7 @@ unitsArtdefUnitMemberElement = """<Element>
 
 modelConvDatLines = {}
 
-with open('D:\\mod\\Civ5Unpacks\\UnitModels_All\\resaveBatch\\UnitModels_All.dat','r') as f:
+with open('D:\\Civ6Mod\\Civ5Unpacks\\UnitConversionsPart2\\civ5units2.dat','r') as f:
     for x in f:
         bits = x.split(';')
         keyName = bits[0].replace(".gr2","")
@@ -451,7 +451,6 @@ with open('D:\\mod\\Civ5Unpacks\\UnitModels_All\\resaveBatch\\UnitModels_All.dat
         modelConvDatLines[keyName] = x
 
 
-biomes = ["Arid","Frigid","Fungal","Lush","Primordial"]
 
 #Read Asset Names
 unitAssetNames = []
@@ -572,11 +571,14 @@ unitAssetTypeOverrides = {
     "Ww1_Fighter" : "Air",
     "Ww1_Machinegun" : "Ranged",
     "Ww1_Tank" : "Cavalry",
-    "Xp_Privateer" : "Naval"
+    "Xp_Privateer" : "Naval",
+    "U_Denmark_Longboat" : "Naval",
+    "U_Korean_Turtle_Ship" : "Naval",
+    "U_Polynesian_War_Canoe" : "Naval"
 }
 
 unitAssetTypes = {}
-modbuddyPath = "D:\\mod\\Civ5Unpacks\\UnitModels_All\\resaveBatch\\Modbuddy"
+modbuddyPath = "D:\\Civ6Mod\\Civ5Unpacks\\UnitConversionsPart2\\Modbuddy"
 unitPrefix = "UNIT_CIV5_"
 assets_path = modbuddyPath + "\\Assets"
 for path, subdirs, files in os.walk(assets_path):
@@ -585,8 +587,6 @@ for path, subdirs, files in os.walk(assets_path):
             unitAssetName = filename.replace(".ast","")
 
             unitAssetNameToLookup = unitAssetName
-            for biome in biomes:
-                unitAssetNameToLookup = unitAssetNameToLookup.replace("_"+biome,"")
             modelConvData = modelConvDatLines[unitAssetNameToLookup]
             animations = modelConvData.split(';')[1]
 
