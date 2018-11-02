@@ -439,16 +439,7 @@ unitsArtdefUnitMemberElement = """<Element>
 				<m_AppendMergedParameterCollections>false</m_AppendMergedParameterCollections>
 			</Element>"""
 
-modelConvDatLines = {}
 
-with open('D:\\Civ6Mod\\Civ5Unpacks\\UnitConversionsPart2\\civ5units2.dat','r') as f:
-    for x in f:
-        bits = x.split(';')
-        keyName = bits[0].replace(".gr2","")
-        if len(bits[3].rstrip()) > 0:
-            keyName = bits[3].rstrip()
-        keyName = keyName.title()
-        modelConvDatLines[keyName] = x
 
 
 
@@ -465,7 +456,7 @@ unitAssetTypeSettings =	{
     "Sub": [1.5, "SUBMARINE", 1],
     "Cavalry": [1.5, "ARMOR", 1],
     "Air": [1.5, "AIR", 1],
-    "Other": [1.5, "INFANTRY", 1]
+    "Other": [50, "INFANTRY", 1]
 }
 
 unitAssetTypeOverrides = {
@@ -578,8 +569,8 @@ unitAssetTypeOverrides = {
 }
 
 unitAssetTypes = {}
-modbuddyPath = "D:\\Civ6Mod\\Civ5Unpacks\\UnitConversionsPart2\\Modbuddy"
-unitPrefix = "UNIT_CIV5_"
+modbuddyPath = "D:\\Civ6Mod\\gitproject\\WH40K_UnitConversions\\WH40K_UnitConversions"
+unitPrefix = "UNIT_WH40K_"
 assets_path = modbuddyPath + "\\Assets"
 for path, subdirs, files in os.walk(assets_path):
     for filename in files:
@@ -587,8 +578,6 @@ for path, subdirs, files in os.walk(assets_path):
             unitAssetName = filename.replace(".ast","")
 
             unitAssetNameToLookup = unitAssetName
-            modelConvData = modelConvDatLines[unitAssetNameToLookup]
-            animations = modelConvData.split(';')[1]
 
             keyFound = False
             for key in unitAssetTypeOverrides.keys():
