@@ -1,13 +1,13 @@
 import xml.etree.ElementTree as ET
 import os
 
-models_path = "D:\\Civ6Mod\\Civ5Unpacks\\UnitConversionsPart2\\"
+models_path = "D:\\mod\\Civ5Unpacks\\Upgrade1Models\\"
 
-with open(models_path + "\\civ5units2.dat", 'w') as f:
+with open(models_path + "\\upgrade1.dat", 'w') as f:
 
     for path, subdirs, files in os.walk(models_path):
         for filename in files:
-            if filename.endswith(".fxsxml"): # and filename.startswith("aegis"):
+            if filename.endswith(".fxsxml") and filename.startswith("el_"):
                 mesh = ""
                 animations = []
                 textures = []
