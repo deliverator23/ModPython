@@ -2,7 +2,7 @@
 
 import os
 
-modroot = "D:\\mod\\gitprojects\\TerraMirabilis_Release\\NaturalWondersMod\\"
+modroot = "D:\\Civ6Mod\\gitproject\\MoarUniqueUnits\\MoarUniqueUnits\\"
 winblpfolder = "Platforms\\Windows\\BLPs\\"
 macblpfolder  = "Platforms\\MacOS\\BLPs\\"
 

@@ -439,19 +439,9 @@ unitsArtdefUnitMemberElement = """<Element>
 				<m_AppendMergedParameterCollections>false</m_AppendMergedParameterCollections>
 			</Element>"""
 
-modelConvDatLines = {}
-
-with open('D:\\mod\\Civ5Unpacks\\UnitModels_All\\resaveBatch\\UnitModels_All.dat','r') as f:
-    for x in f:
-        bits = x.split(';')
-        keyName = bits[0].replace(".gr2","")
-        if len(bits[3].rstrip()) > 0:
-            keyName = bits[3].rstrip()
-        keyName = keyName.title()
-        modelConvDatLines[keyName] = x
 
 
-biomes = ["Arid","Frigid","Fungal","Lush","Primordial"]
+
 
 #Read Asset Names
 unitAssetNames = []
@@ -466,7 +456,7 @@ unitAssetTypeSettings =	{
     "Sub": [1.5, "SUBMARINE", 1],
     "Cavalry": [1.5, "ARMOR", 1],
     "Air": [1.5, "AIR", 1],
-    "Other": [1.5, "INFANTRY", 1]
+    "Other": [50, "INFANTRY", 1]
 }
 
 unitAssetTypeOverrides = {
@@ -572,12 +562,15 @@ unitAssetTypeOverrides = {
     "Ww1_Fighter" : "Air",
     "Ww1_Machinegun" : "Ranged",
     "Ww1_Tank" : "Cavalry",
-    "Xp_Privateer" : "Naval"
+    "Xp_Privateer" : "Naval",
+    "U_Denmark_Longboat" : "Naval",
+    "U_Korean_Turtle_Ship" : "Naval",
+    "U_Polynesian_War_Canoe" : "Naval"
 }
 
 unitAssetTypes = {}
-modbuddyPath = "D:\\mod\\Civ5Unpacks\\UnitModels_All\\resaveBatch\\Modbuddy"
-unitPrefix = "UNIT_CIV5_"
+modbuddyPath = "D:\\Civ6Mod\\gitproject\\WH40K_UnitConversions\\WH40K_UnitConversions"
+unitPrefix = "UNIT_WH40K_"
 assets_path = modbuddyPath + "\\Assets"
 for path, subdirs, files in os.walk(assets_path):
     for filename in files:
@@ -585,10 +578,6 @@ for path, subdirs, files in os.walk(assets_path):
             unitAssetName = filename.replace(".ast","")
 
             unitAssetNameToLookup = unitAssetName
-            for biome in biomes:
-                unitAssetNameToLookup = unitAssetNameToLookup.replace("_"+biome,"")
-            modelConvData = modelConvDatLines[unitAssetNameToLookup]
-            animations = modelConvData.split(';')[1]
 
             keyFound = False
             for key in unitAssetTypeOverrides.keys():
