@@ -1,6 +1,52 @@
 import random
+import matplotlib.pyplot as plt
+import math
 
-points = [(random.random()* 50.0 - 25, random.random()*50.0 - 25.0) for _ in range(50)]
+def PointInsideTriangle(pt, tri):
+    a = 1/(-tri[1][1]*tri[2][0]+tri[0][1]*(-tri[1][0]+tri[2][0])+
+        tri[0][0]*(tri[1][1]-tri[2][1])+tri[1][0]*tri[2][1])
+    s = a*(tri[2][0]*tri[0][1]-tri[0][0]*tri[2][1]+(tri[2][1]-tri[0][1])*pt[0]+
+        (tri[0][0]-tri[2][0])*pt[1])
+    if s<0: return False
+    else: t = a*(tri[0][0]*tri[1][1]-tri[1][0]*tri[0][1]+(tri[0][1]-tri[1][1])*pt[0]+
+              (tri[1][0]-tri[0][0])*pt[1])
+    return ((t>0) and (1-s-t>0))
+
+NUM_POINTS_TO_GENERATE = 1200
+MIN_DISTANCE = 2.25
+EXCLUSION_QUAD = [[-12, 12], [-12, -12], [12, -12], [12, 12]]
+OVERALL_SCALE = 22.66
+
+points = [(random.random() * OVERALL_SCALE * 2.0 - OVERALL_SCALE, random.random() * OVERALL_SCALE * 2.0 - OVERALL_SCALE) for _ in range(NUM_POINTS_TO_GENERATE)]
+
+xcoords = []
+ycoords = []
+current_points = []
+for point in points:
+    x,y = point
+
+    if math.sqrt(math.pow(x,2) + math.pow(y,2)) <= OVERALL_SCALE:
+
+        show_point = True
+        for other_point in current_points:
+            ox, oy = other_point
+            if math.sqrt(math.pow(x - ox,2) + math.pow(y - oy,2)) <= MIN_DISTANCE:
+                show_point = False
+                break
+
+        if PointInsideTriangle(point, [EXCLUSION_QUAD[0], EXCLUSION_QUAD[1], EXCLUSION_QUAD[2]]) or PointInsideTriangle(point, [EXCLUSION_QUAD[0], EXCLUSION_QUAD[2], EXCLUSION_QUAD[3]]):
+            show_point = False
+
+        if show_point:
+            xcoords.append(x)
+            ycoords.append(y)
+            current_points.append(point)
+
+print(str(len(current_points)) + " points written.")
+
+plt.scatter(xcoords,ycoords)
+plt.axes().set_aspect('equal', 'datalim')
+plt.show()
 
 attachmentTemplate = """<Element>
 						<m_CookParams>
@@ -53,10 +99,12 @@ tilebaseNames = ["PantanalGrassA",
 "PantanalTreeC",
 "PantanalTreeD"]
 
+def write_attachment_points(current_points):
+    filename = "D:\\mod\\attachment-points.xml"
+    with open(filename, 'w') as f:
+        for i, point in enumerate(current_points):
+            tilebaseName = random.choice(tilebaseNames)
+            attachPointName = "Foliage" + str(i + 1)
+            print((attachmentTemplate % (tilebaseName, point[0], point[1], attachPointName)),file=f)
 
-filename = "D:\\mod\\attachment-points.xml"
-with open(filename, 'w') as f:
-    for i, point in enumerate(points):
-        tilebaseName = random.choice(tilebaseNames)
-        attachPointName = "Foliage" + str(i)
-        print((attachmentTemplate % (tilebaseName, point[0], point[1], attachPointName)),file=f)
+write_attachment_points(current_points)

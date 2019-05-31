@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 
-xml = ET.parse("D:\\SteamLibrary\\steamapps\\common\\Sid Meier's Civilization VI\\Base\\Assets\\Gameplay\\Data\\Units.xml")
+xml = ET.parse("D:\\mod\\GS_Reference\\Expansion_2\\Data\\Expansion2_Buildings_Major.xml")
 
 root = xml.getroot()
 
@@ -8,7 +8,7 @@ for child in root:
 
     print ("")
     print ("--"+child.tag)
-    if child.tag not in ('UnitPromotionModifiers','UnitAbilityModifiers','Modifiers','ModifierArguments','RequirementSets','RequirementSetRequirements','Requirements','RequirementArguments'):
+    if child.tag not in ('BuildingModifiers','UnitPromotionModifiers','UnitAbilityModifiers','Modifiers','ModifierArguments','RequirementSets','RequirementSetRequirements','Requirements','RequirementArguments'):
         for child2 in child:
 
             keysString = ", ".join(child2.attrib.keys())
