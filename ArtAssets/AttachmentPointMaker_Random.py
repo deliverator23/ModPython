@@ -12,10 +12,33 @@ def PointInsideTriangle(pt, tri):
               (tri[1][0]-tri[0][0])*pt[1])
     return ((t>0) and (1-s-t>0))
 
-NUM_POINTS_TO_GENERATE = 1200
+def PointInsideQuad(point, quad):
+    return PointInsideTriangle(point, [quad[0], quad[1], quad[2]]) or PointInsideTriangle(point, [quad[0], quad[2], quad[3]])
+
+def PointInsideHex(point, hex):
+    quad1 = [hex[0], hex[1], hex[2], hex[3]]
+    quad2 = [hex[0], hex[3], hex[4], hex[5]]
+    return PointInsideQuad(point, quad1) or PointInsideQuad(point, quad2)
+
+
+NUM_POINTS_TO_GENERATE = 2500
+
 MIN_DISTANCE = 2.25
-EXCLUSION_QUAD = [[-12, 12], [-12, -12], [12, -12], [12, 12]]
-OVERALL_SCALE = 22.66
+
+EXCLUSION_QUAD = [[13.06265, -20.72883],
+[23.16047, -10.97551],
+[-6.140054, 15.87294],
+[-12.54786, 1.750044]]
+
+EXCLUSION_QUAD2 = [[-6.140054, 15.87294],
+[-12.54786, 1.750044],
+[-19.36989, 21.32259],
+[-23.09389, 13.08166]]
+
+INCLUSION_HEX = [[0, -36.5], [-32.15513,-18.22773], [-32.15513,18.22773], [0, 36.5],  [32.15513,18.22773], [32.15513,-18.22773] ]
+
+OVERALL_SCALE = 36.5
+
 
 points = [(random.random() * OVERALL_SCALE * 2.0 - OVERALL_SCALE, random.random() * OVERALL_SCALE * 2.0 - OVERALL_SCALE) for _ in range(NUM_POINTS_TO_GENERATE)]
 
@@ -25,16 +48,19 @@ current_points = []
 for point in points:
     x,y = point
 
-    if math.sqrt(math.pow(x,2) + math.pow(y,2)) <= OVERALL_SCALE:
+    #if math.sqrt(math.pow(x,2) + math.pow(y,2)) <= OVERALL_SCALE:
+    if PointInsideHex(point, INCLUSION_HEX):
 
         show_point = True
+
+        # Check proximity to existing points
         for other_point in current_points:
             ox, oy = other_point
             if math.sqrt(math.pow(x - ox,2) + math.pow(y - oy,2)) <= MIN_DISTANCE:
                 show_point = False
                 break
 
-        if PointInsideTriangle(point, [EXCLUSION_QUAD[0], EXCLUSION_QUAD[1], EXCLUSION_QUAD[2]]) or PointInsideTriangle(point, [EXCLUSION_QUAD[0], EXCLUSION_QUAD[2], EXCLUSION_QUAD[3]]):
+        if PointInsideQuad(point, EXCLUSION_QUAD) or PointInsideQuad(point, EXCLUSION_QUAD2):
             show_point = False
 
         if show_point:
@@ -77,34 +103,27 @@ attachmentTemplate = """<Element>
 						<m_orientation>
 							<x>0.000000</x>
 							<y>0.000000</y>
-							<z>0</z>
+							<z>%f</z>
 						</m_orientation>
 						<m_Name text="%s"/>
 						<m_BoneName text="NWON_Origin_Dummy"/>
 						<m_ModelInstanceName text="NWON_Origin_Dummy"/>
-						<m_scale>0.75</m_scale>
+						<m_scale>%f</m_scale>
 					</Element>"""
 
-tilebaseNames = ["PantanalGrassA",
-"PantanalGrassB",
-"PantanalPlantA",
-"PantanalPlantB",
-"PantanalPlantC",
-"PantanalTreeBushA",
-"PantanalTreeBushB",
-"PantanalTreeBushC",
-"PantanalTreeBushD",
-"PantanalTreeA",
-"PantanalTreeB",
-"PantanalTreeC",
-"PantanalTreeD"]
+tilebaseNames = ["Tree_B_Lg_Dirt", "Tree_C_Lg_Dirt"]
 
 def write_attachment_points(current_points):
-    filename = "D:\\mod\\attachment-points.xml"
+    filename = "D:\\Civ6Mod\\attachment-points.xml"
     with open(filename, 'w') as f:
         for i, point in enumerate(current_points):
             tilebaseName = random.choice(tilebaseNames)
-            attachPointName = "Foliage" + str(i + 1)
-            print((attachmentTemplate % (tilebaseName, point[0], point[1], attachPointName)),file=f)
+            index = i + 1
+            attachPointName = ("Foliage" + "{:03d}".format(index))
+
+            scale = (random.random() / 5) + 0.9
+            rotation = random.random() * math.pi
+
+            print((attachmentTemplate % (tilebaseName, point[0], point[1], rotation, attachPointName, scale)),file=f)
 
 write_attachment_points(current_points)
