@@ -2,21 +2,24 @@ import random
 import math
 
 points = [
-(29.752232,13.991024),
-(20.479332, 2.512937),
-(24.110611,5.179298),
-(27.627651, 9.631454),
-(25.929184,20.657860),
-(11.826487,17.740625),
-(15.165953,18.689348),
-(21.680889,20.567541),
-(11.984571,28.332611),
-(12.394378,21.482731),
-(17.755960,19.894260),
-(12.425751, 24.502901),
-(29.939230,-2.630993),
-(26.947992,-0.639460),
-(23.713121,1.771422)
+    (34.8641,-3.02407),
+(33.0454,-11.7725),
+(28.7094,-19.8255),
+(14.5992,-31.8841),
+(9.95208,-42.4636),
+(4.06176,-43.524),
+(-3.88019,-35.8652),
+(-21.046,-28.5185),
+(-28.0415,-22.7192),
+(-32.7694,-15.1647),
+(34.1437,7.55272),
+(31.4457,16.0465),
+(26.1145,23.4049),
+(2.14298,36.7703),
+(-16.3797,32.9958),
+(-30.6236,21.0954),
+(-35.0492,13.0913),
+(-36.9655,4.36373)
 ]
 
 attachmentTemplate = """<Element>
@@ -51,14 +54,16 @@ attachmentTemplate = """<Element>
 							<z>%f</z>
 						</m_orientation>
 						<m_Name text="%s"/>
-						<m_BoneName text="NWON_Origin_Dummy"/>
-						<m_ModelInstanceName text="NWON_Origin_Dummy"/>
-						<m_scale>1</m_scale>
+						<m_BoneName text="WON_Bone"/>
+						<m_ModelInstanceName text="WON_Dummy"/>
+						<m_scale>0.75</m_scale>
 					</Element>"""
 
-tilebaseNames = ["Jungle_PalmC"]
+tilebaseNames = ["Tree_C_Lg_Dirt"]
 
-angles = [2.0944, 4.18879]
+angles = [0]
+
+xy_scale = 0.5
 
 filename = "D:\\Civ6Mod\\output\\attachment-points.xml"
 with open(filename, 'w') as f:
@@ -68,8 +73,8 @@ with open(filename, 'w') as f:
             index = i + 1 + ((j+1) * 100)
             attachPointName = ("Foliage" + "{:03d}".format(index))
 
-            x = point[0]
-            y = point[1]
+            x = point[0] * xy_scale
+            y = point[1] * xy_scale
 
             x2 = (x * math.cos(angle)) - (y * math.sin(angle))
             y2 = (y * math.cos(angle)) + (x * math.sin(angle))
