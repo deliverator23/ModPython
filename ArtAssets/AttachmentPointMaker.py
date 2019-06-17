@@ -63,7 +63,7 @@ tilebaseNames = ["Tree_C_Lg_Dirt"]
 
 angles = [0]
 
-xy_scale = 0.5
+xy_scale = 0.45
 
 filename = "D:\\Civ6Mod\\output\\attachment-points.xml"
 with open(filename, 'w') as f:
