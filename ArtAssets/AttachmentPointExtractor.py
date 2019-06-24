@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 
-xml = ET.parse("D:\\mod\\gitprojects\\CWON_Burj_Khalifa\\CWON_Burj_Khalifa\\Assets\\Burj_Khalifa_Wonder.ast")
+xml = ET.parse("D:\\Civ6Mod\\gitproject\\CWON_Borobudur\\CWON_Borobudur\\Assets\\Borobudur_WonderMovie.ast")
 
 root = xml.getroot()
 
@@ -15,6 +15,7 @@ for child in root:
                                 name = ""
                                 xpos = ""
                                 ypos = ""
+                                zpos = ""
                                 zrot = ""
                                 scale = ""
                                 bone_name = ""
@@ -35,6 +36,8 @@ for child in root:
                                                 xpos = child7.text
                                             if child7.tag == 'y':
                                                 ypos = child7.text
+                                            if child7.tag == 'z':
+                                                zpos = child7.text
 
                                     if child6.tag == 'm_orientation':
                                         #print(child6.tag)
@@ -59,6 +62,6 @@ for child in root:
                                         # print(child6.tag, child6.text)
                                         model_name = child6.attrib['text']
 
-                                print("(" + ",".join(["'"+name+"'", "'"+bone_name+"'", "'"+model_name+"'", xpos, ypos, zrot, scale])+"),")
+                                print("(" + ",".join(["'"+name+"'", "'"+bone_name+"'", "'"+model_name+"'", xpos, ypos, zpos, zrot, scale])+"),")
 
                                 #print("---")

@@ -125,7 +125,7 @@ attachmentTemplate = """<Element>
 						<m_scale>%f</m_scale>
 					</Element>"""
 
-tilebaseNames = ["Jungle_PalmC"]
+tilebaseNames = ["VIL_Tribal_Thatch_Torch_A"]
 
 def write_attachment_points(current_points):
     filename = "D:\\Civ6Mod\\output\\attachment-points.xml"
