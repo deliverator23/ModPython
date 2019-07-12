@@ -9,8 +9,12 @@ import sys
 def make_atlas(img, layer, inputFolder, outputFolder):
     index = 0
 
+    lst = os.listdir(inputFolder)
+
+    lst2 = sorted(lst, key=lambda line: int(line.split('_')[2].split('.')[0]))
+
     # Iterate the folder
-    for file in os.listdir(inputFolder):
+    for file in lst2:
 
         try:
             # Build the full file paths.
@@ -19,8 +23,8 @@ def make_atlas(img, layer, inputFolder, outputFolder):
 
             # Open the DDS file
             image = None
-            if (file.lower().endswith(('.png'))):
-                image = pdb.file_png_load(inputPath, inputPath)
+            if (file.lower().endswith(('.dds'))):
+                image = pdb.file_dds_load(inputPath, inputPath, 1, 1)
 
             # Verify if the file is an image.
             if (image != None):
@@ -31,7 +35,7 @@ def make_atlas(img, layer, inputFolder, outputFolder):
                 nw = 0
                 nh = 0
 
-                rsize = 230
+                rsize = 250
                 osize = 256
                 rows_cols = 8
 
@@ -72,7 +76,7 @@ def make_atlas(img, layer, inputFolder, outputFolder):
 
                 index += 1
 
-                filename = outputPath.lower().replace(".png", "_256.png")
+                filename = outputPath.lower().replace(".dds", "_256.png")
 
                 # pdb.file_dds_save(image, image.layers[0], filename, filename, 0, 1, 0, 4, 0, 8, 0, 0, 0, 0, 0, 0, 0)
 
