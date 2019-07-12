@@ -8,13 +8,18 @@ for child in root:
 
     print ("")
     print ("--"+child.tag)
-    if child.tag not in ('BuildingModifiers','UnitPromotionModifiers','UnitAbilityModifiers','Modifiers','ModifierArguments','RequirementSets','RequirementSetRequirements','Requirements','RequirementArguments'):
+    if child.tag not in ('UnitPromotionModifiers','UnitAbilityModifiers','Modifiers','ModifierArguments','RequirementSets','RequirementSetRequirements','Requirements','RequirementArguments'):
         for child2 in child:
 
             keysString = ", ".join(child2.attrib.keys())
             values = []
             for key in child2.attrib.keys():
-                values.append(child2.attrib[key])
+                value = child2.attrib[key]
+                if value == 'true':
+                    value = 1
+                elif value == 'false':
+                    value = 0
+                values.append(value)
 
             valuesString =  ", ".join("'{0}'".format(w) for w in values)
 
@@ -26,7 +31,13 @@ for child in root:
             values = []
             for child3 in child2:
                 keys.append(child3.tag)
-                values.append(child3.text)
+
+                value = child3.text
+                if value == 'true':
+                    value = 1
+                elif value == 'false':
+                    value = 0
+                values.append(value)
 
             keysString = ", ".join(keys)
             valuesString =  ", ".join("'{0}'".format(w) for w in values)
