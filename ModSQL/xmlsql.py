@@ -43,16 +43,3 @@ for child in root:
             valuesString =  ", ".join("'{0}'".format(w) for w in values)
 
             print ("INSERT INTO " + child.tag + " (" + keysString + ") VALUES (" + valuesString + ");")
-
-
-#xml = ET.parse("E:\\mod\\MOAR_Units\\MoarUnits\\MOAR_Units\\Data\\MOAR_Units_Data.xml")
-#xml = ET.parse("E:\\mod\\MOAR_Units\\EvenMoarUnitsAustralia\\Even_MOAR_Units_Australia\\Data\\Even_MOAR_Units_Australia_Data.xml")
-#xml = ET.parse("E:\\mod\\MOAR_Units\\EvenMoarUnitsAztec\\Even_MOAR_Units_Aztec\\Data\\Even_MOAR_Units_Aztec_Data.xml")
-#xml = ET.parse("E:\\mod\\MOAR_Units\\EvenMoarUnitsPoland\\Even_MOAR_Units_Poland\\Data\\Even_MOAR_Units_Poland_Data.xml")
-#xml = ET.parse("E:\\mod\\MOAR_Units\\EvenMoarUnitsMacedonAndPersia_Release\\MoarUnitsMacedonAndPersia\\Data\\Even_MOAR_Units_MacedonPersia_Data.xml")
-#xml = ET.parse("E:\\SteamLibrary\\steamapps\\common\\Sid Meier's Civilization VI\\Base\\Assets\\Gameplay\\Data\\Units.xml")
-
-#xml = ET.parse("E:\\SteamLibrary\\steamapps\\common\\Sid Meier's Civilization VI\\DLC\\Expansion1\\Data\\Expansion1_Units.xml")
-
-
-
