@@ -2,7 +2,7 @@ from PIL import Image
 
 import os
 
-dir_path = "D:\\mod\\Artifacts_and_Relics\\Artifact_Relics_Images\\atlas"
+dir_path = "D:\\Civ6Mod\\Artifacts_and_Relics\\Artifact_Relics_Images\\atlas\\relic"
 
 directory = os.fsencode(dir_path)
 
@@ -17,4 +17,4 @@ for file in os.listdir(directory):
 
     out_image = Image.alpha_composite(out_image, Image.open(full_filename))
 
-out_image.save("D:\\mod\\Artifacts_and_Relics\\Artifact_Relics_Images\\atlas\\atlas.png")
+out_image.save("D:\\Civ6Mod\\Artifacts_and_Relics\\Artifact_Relics_Images\\atlas\\relic\\atlas.png")
