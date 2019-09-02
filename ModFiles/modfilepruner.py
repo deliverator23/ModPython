@@ -2,7 +2,8 @@
 
 import os
 
-modroot = "D:\\Civ6Mod\\gitproject\\MoarUniqueUnits\\MoarUniqueUnits\\"
+#modroot = "D:\\Civ6Mod\\gitproject\\MoarUniqueUnits\\MoarUniqueUnits\\"
+modroot = "D:\\Civ6Mod\\gitproject\\UnitExpansion\\"
 winblpfolder = "Platforms\\Windows\\BLPs\\"
 macblpfolder  = "Platforms\\MacOS\\BLPs\\"
 
