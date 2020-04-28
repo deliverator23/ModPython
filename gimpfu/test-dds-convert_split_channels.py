@@ -31,7 +31,7 @@ def dds_convert_split(img, layer, inputFolder, outputFolder):
                 layer = image.layers[0]
                         
                 # Get the layer position.
-                pos = 0;
+                pos = 0
                 for i in range(len(image.layers)):
                     if(image.layers[i] == layer):
                         pos = i
