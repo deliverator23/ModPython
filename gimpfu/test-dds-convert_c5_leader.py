@@ -185,8 +185,8 @@ def dds_convert_split(img, layer, inputFolder, outputFolder):
                 merged_layer = pdb.gimp_image_merge_visible_layers(new_diff_image, 0)
                 
                 pdb.file_dds_save(new_diff_image, merged_layer, outputPath.lower().replace("_diff.dds","_diff_sref_a.dds"), outputPath.lower().replace("_diff.dds","_diff_sref_a.dds"),   0, 1, 0, 4, 0, 8, 0, 0, 0, 0, 0, 0, 0)
-                pdb.file_dds_save(sref_image, sref_layerA, outputPath_sref.lower().replace("_sref.dds", "_sref_m.dds"), outputPath_sref.lower().replace("_sref.dds", "_sref_m.dds"), 0, 1, 0, 4, 0, 8, 0, 0, 0, 0, 0, 0, 0)
-                pdb.file_dds_save(sref_image, sref_layerA, outputPath_sref.lower().replace("_sref.dds", "_sref_g.dds"), outputPath_sref.lower().replace("_sref.dds", "_sref_g.dds"), 0, 1, 0, 4, 0, 8, 0, 0, 0, 0, 0,0, 0)
+                pdb.file_dds_save(sref_image, sref_layerA, outputPath_sref.lower().replace("_sref.dds", "_sref_m.dds"), outputPath_sref.lower().replace("_sref.dds", "_sref_m.dds"), 0, 0, 0, 4, 0, 8, 0, 0, 0, 0, 0, 0, 0)
+                pdb.file_dds_save(sref_image, sref_layerA, outputPath_sref.lower().replace("_sref.dds", "_sref_g.dds"), outputPath_sref.lower().replace("_sref.dds", "_sref_g.dds"), 0, 0, 0, 4, 0, 8, 0, 0, 0, 0, 0,0, 0)
 
         except Exception as err:
             #gimp.message("Unexpected error: " + str(err))
