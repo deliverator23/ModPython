@@ -17,7 +17,13 @@ def get_concat_v(im1, im2):
     dst.paste(im2, (0, im1.height))
     return dst
 
-texture_filename = "gajah_hair_diff.dds"
+# levels to fix 2048, 2048 capture - black 7, white 235
+
+# gajah diff+sref, additive blend mode with alpha, 255 full opacity, level white 140
+# sref alpha -> preserve details 2.0 upscale -> gloss
+# gloss -> levels - metal white else dark -> metalness
+
+texture_filename = "darius_skin_diff.dds"
 
 dir_path = "C:\\Users\\User\\Documents\\My Games\\Sid Meier's Civilization 5\\ScreenShots"
 temp_path = "D:\\temp"
