@@ -1,7 +1,7 @@
 import os
 from PIL import Image
 
-dir_path = "D:\\Civ5Mod\\Leaderhead_Work\\Expansion0Leaders\\resaveBatch\\Modbuddy\\Textures"
+dir_path = "D:\\Civ5Mod\\Leaderhead_Work\\Expansion1Leaders\\resaveBatch\\Modbuddy\\Textures"
 
 dds_files = []
 
@@ -31,7 +31,7 @@ for dds_file in dds_files:
 
     if dds_file[0].endswith("sref.dds"):
         alpha = dds_file[3].split()[-1]
-        alpha.save(dir_path + "\\sref_alpha\\" + dds_file[0].replace(".dds","_alpha.png"))
+        alpha.save(dir_path + "\\sref_alpha\\" + dds_file[0].replace(".dds", "_alpha.png"))
 
     prev_x = dds_file[1]
     counter += 1

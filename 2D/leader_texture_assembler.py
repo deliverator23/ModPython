@@ -3,6 +3,8 @@ from PIL import Image
 import os
 from pathlib import Path
 import ntpath
+import colorsys
+
 
 def get_concat_h(im1, im2):
     dst = Image.new('RGB', (im1.width + im2.width, im1.height))
@@ -23,7 +25,9 @@ def get_concat_v(im1, im2):
 # sref alpha -> preserve details 2.0 upscale -> gloss
 # gloss -> levels - metal white else dark -> metalness
 
-texture_filename = "darius_skin_diff.dds"
+# Maria - pose time 2.5
+
+texture_filename = "maria_skin_norm.dds"
 
 dir_path = "C:\\Users\\User\\Documents\\My Games\\Sid Meier's Civilization 5\\ScreenShots"
 temp_path = "D:\\temp"
@@ -53,4 +57,3 @@ row2.save(temp_path + "\\" + "temp_row2.png")
 full_image = get_concat_v(row1, row2)
 
 full_image.save("D:\\Civ5Mod\\Leaderhead_Work\\HQ_Textures\\" + texture_filename.replace(".dds",".png"))
-
