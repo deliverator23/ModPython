@@ -27,7 +27,7 @@ def get_concat_v(im1, im2):
 
 # Maria - pose time 2.5
 
-texture_filename = "maria_skin_norm.dds"
+texture_filename = "william_skin_norm.dds"
 
 dir_path = "C:\\Users\\User\\Documents\\My Games\\Sid Meier's Civilization 5\\ScreenShots"
 temp_path = "D:\\temp"

@@ -3,7 +3,7 @@ from PIL import Image
 import os
 from pathlib import Path
 
-texture_filename = "darius_skin_norm_1024.dds"
+texture_filename = "askia_beard_opac_1024.dds"
 
 dir_path = "C:\\Users\\User\\Documents\\My Games\\Sid Meier's Civilization 5\\ScreenShots"
 
