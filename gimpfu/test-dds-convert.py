@@ -24,7 +24,9 @@ def dds_convert(img, layer, inputFolder, outputFolder, removeTransparency):
             image = None
             if(file.lower().endswith(('.dds'))):
                 image = pdb.file_dds_load(inputPath, inputPath, 1, 1)
-                
+                if pdb.gimp_image_base_type(image) != 1:
+                    image = None
+
             # Verify if the file is an image.
             if(image != None):
                 # Save the image.

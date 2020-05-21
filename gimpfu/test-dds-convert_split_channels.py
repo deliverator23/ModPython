@@ -22,7 +22,7 @@ def dds_convert_split(img, layer, inputFolder, outputFolder):
         
             # Open the DDS file
             image = None
-            if(file.lower().endswith(('.dds'))):
+            if(file.lower().endswith(('sref.dds'))):
                 image = pdb.file_dds_load(inputPath, inputPath, 1, 1)
                 
             # Verify if the file is an image.
@@ -111,13 +111,13 @@ def dds_convert_split(img, layer, inputFolder, outputFolder):
                 #pdb.file_dds_save(image, layerG, outputPath.lower().replace(".dds","_g.dds"), outputPath.lower().replace(".dds","_g.dds"),   0, 1, 0, 4, 0, 8, 0, 0, 0, 0, 0, 0, 0)
                 #pdb.file_dds_save(image, layerB, outputPath.lower().replace(".dds","_b.dds"), outputPath.lower().replace(".dds","_b.dds"),   0, 1, 0, 4, 0, 8, 0, 0, 0, 0, 0, 0, 0)
                 #pdb.file_dds_save(image, layerA, outputPath.lower().replace(".dds","_a.dds"), outputPath.lower().replace(".dds","_a.dds"),   0, 1, 0, 4, 0, 8, 0, 0, 0, 0, 0, 0, 0)
-                #pdb.file_dds_save(image, layerRGB, outputPath.lower().replace(".dds","_rgb.dds"), outputPath.lower().replace(".dds","_rgb.dds"),   0, 1, 0, 4, 0, 8, 0, 0, 0, 0, 0, 0, 0)
+                pdb.file_dds_save(image, layerRGB, outputPath.lower().replace(".dds","_rgb.dds"), outputPath.lower().replace(".dds","_rgb.dds"),   0, 1, 0, 4, 0, 8, 0, 0, 0, 0, 0, 0, 0)
                 
-                pdb.gimp_invert(layerA)
-                pdb.gimp_drawable_levels_stretch(layerA)
-                pdb.gimp_drawable_levels(layerA, 0, 0, 0.902, 0, 1, 0, 1, 0)
+                #pdb.gimp_invert(layerA)
+                #pdb.gimp_drawable_levels_stretch(layerA)
+                #pdb.gimp_drawable_levels(layerA, 0, 0, 0.902, 0, 1, 0, 1, 0)
                 
-                pdb.file_dds_save(image, layerA, outputPath.lower().replace(".dds","_t.dds"), outputPath.lower().replace(".dds","_t.dds"),   0, 1, 0, 4, 0, 8, 0, 0, 0, 0, 0, 0, 0)
+                pdb.file_dds_save(image, layerA, outputPath.lower().replace(".dds","_alpha.dds"), outputPath.lower().replace(".dds","_alpha.dds"),   0, 1, 0, 4, 0, 8, 0, 0, 0, 0, 0, 0, 0)
             
         except Exception as err:
             gimp.message("Unexpected error: " + str(err))

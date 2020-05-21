@@ -193,7 +193,7 @@ def dds_convert_split(img, layer, inputFolder, outputFolder):
             raise
 
 register(
-    "python_fu_test_dds_convert_split",
+    "python_fu_test_dds_convert_c5_split",
     "DDS Leader Processing",
     "Does dds leader processing",
     "Deliverator",
