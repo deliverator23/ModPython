@@ -2,7 +2,7 @@ import os
 from PIL import Image
 import os
 
-dir_path = "D:\\Civ5Mod\\Leaderhead_Work\\Expansion2Leaders\\resaveBatch\\Modbuddy\\Textures"
+dir_path = "D:\\Civ5Mod\\Leaderhead_Work\\Expansion1Leaders\\resaveBatch\\Modbuddy\\Textures"
 
 dds_files = []
 

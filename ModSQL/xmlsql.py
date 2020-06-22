@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 
-xml = ET.parse("D:\\mod\\GS_Reference\\Expansion_2\\Data\\Expansion2_Buildings_Major.xml")
+xml = ET.parse("D:\Civ6Mod\gitproject\Civilization-VI-William-of-Orange\William\Core\William_Config.xml")
 
 root = xml.getroot()
 
