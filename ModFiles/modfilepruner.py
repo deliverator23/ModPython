@@ -52,7 +52,7 @@ for name in unneededfilelist:
 
     # Uncomment to Delete Files
     #os.remove(macfilename)
-    os.remove(winfilename)
+    #os.remove(winfilename)
 
 
 
