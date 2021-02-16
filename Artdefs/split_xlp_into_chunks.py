@@ -80,8 +80,8 @@ for child in root:
 
                                                                                         print(">asset_entry>>>>", entryName, xlpPath, blpPackage)
 
-print(element_count)
-print(len(entry_bucket_ids.keys()))
+print("Total Asset Entries: ", element_count)
+print("Total Distinct Asset References: ", len(entry_bucket_ids.keys()))
 
 with open(base_dir + "\\XLPs\\Unit_Bins.artdef", 'w') as f:
     xml.write(f, encoding='unicode')
